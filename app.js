@@ -37,8 +37,8 @@ var loginRouter = require('./routes/login');
 app.use('/', loginRouter);
 //var profileRouter = require('./routes/profile');
 //app.use('/', profileRouter);
-var allRouter = require('./routes/all');
-app.use('/', allRouter);
+//var allRouter = require('./routes/all');
+//app.use('/', allRouter);
 //var friendsRouter = require('./routes/friends');
 //pp.use('/', friendsRouter);
 var feedRouter = require('./routes/feed');
@@ -47,8 +47,8 @@ app.use('/', feedRouter);
 //app.use('/', suggestionsRouter);
 //var similarRouter = require('./routes/similar');
 //app.use('/', similarRouter);
-var settingsRouter = require('./routes/settings');
-app.use('/', settingsRouter);
+//var settingsRouter = require('./routes/settings');
+//app.use('/', settingsRouter);
 
 app.get('/userHomePage/:id/:personName', function (req, res) {
   User.findUser(req.body.id, function (err2, user) {

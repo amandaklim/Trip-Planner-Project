@@ -1,0 +1,10 @@
+1) mongod
+2) mongoimport --db yelp --collection reviews --drop --file "path\to\reviews.json"
+3) mongoimport --db yelp --collection businessIDs --drop --file "path\to\business_ids.json"
+4) mongo
+5) use yelp
+6) In place of "id" : "lhryYODlAmzQLZGkwmZ8wA", put the desired business_id.
+
+db.businessIDs.find({"id":"lhryYODlAmzQLZGkwmZ8wA"}).map(function (d) { return db.reviews.find({ "business_id" : d.id }).toArray().sort(function(doc1, doc2) { return doc2.text.length - doc1.text.length }); })
+
+7) This returns a javascript list of reviews, sorted in order of descending lenght of text.

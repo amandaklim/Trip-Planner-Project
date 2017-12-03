@@ -1,0 +1,24 @@
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<script type="text/javascript" src="ejs_production.js"></script>
+<div id="first">
+<ul>
+  <li><%- link_to("Home", '/feed/'+email+'/'+personName) %></li>
+  <li><%- link_to("My Profile", '/profile/'+email+'/'+personName) %></li>
+  <li><%- link_to("View Friends", '/friends/'+email+'/'+personName) %></li>
+   <li><%- link_to("View Suggested Friends", '/suggestions/'+email+'/'+personName) %></li>
+      <li><%- link_to("View People with Similar Interests", '/similar/'+email+'/'+personName) %></li>
+    <li><%- link_to("Settings", '/settings/'+email+'/'+personName) %></li>
+   <li><a href="/logout">Logout</a></li>
+   </ul>
+<h1>My Suggestions</h1>
+ </div>
+<div id="nav">
+<div>New friends to add:</div>
+<br>
+<% for(var i=0; i < allSuggestions.length; i++) {%>
+	<div class="profile"><%- link_to(allSuggestions[i].personName, '/profile/'+allSuggestions[i].email+'/'+allSuggestions[i].personName) %>
+		<%= " has " + allSuggestions[i].number + " interest(s) in common with you" %>
+	</div>
+<% } %>
+
+</div>

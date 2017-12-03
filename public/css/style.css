@@ -1,0 +1,77 @@
+* {
+  font-family: "Lucida Grande";
+}
+
+h1 {
+  font: 3em "Lucida Grande";
+  font-weight: bolder;
+  text-align: center;
+  background-color: #3b5998;
+  color: white;
+}
+
+h2 {
+  font: 2em "Lucida Grande";
+  text-align: center;
+  background-color: #3b5998;
+  color: white;
+}
+
+a.profile {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #3b5998;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+
+#first {
+  background-color: #3b5998;
+}
+
+#nav {
+    font: 2em "Lucida Grande";
+    text-align: center;
+}
+
+#nav2 {
+    font: .6em "Lucida Grande";
+    text-align: center;
+    background-color: white;
+    color: black;
+}
+
+form {
+  text-align: center;
+}

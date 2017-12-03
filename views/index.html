@@ -1,0 +1,222 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="/browserref.css">
+
+
+<style>
+
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: #777;
+}
+
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  position: relative;
+  opacity: 0.65;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bgimg-1 {
+  background-image: url('http://cdn.archinect.net/images/1500x/v3/v3481vlucrp584wt.jpg');
+  min-height: 100%;
+}
+
+.bgimg-2 {
+  background-image: url("https://blog.oplao.com/wp-content/uploads/2017/05/Blog-oplao-com-San-Francisco-Perfect-Place-for-Living1.jpg");
+  min-height: 400px;
+}
+
+.bgimg-3 {
+  background-image: url("https://wallpaperscraft.com/image/miami_sea_city_river_view_28420_1280x720.jpg");
+  min-height: 400px;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+.caption span.border {
+  background-color: #111;
+  color: #fff;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+}
+.test {
+  animation: MoveUpDown 2s linear infinite;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 80%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+
+
+@keyframes MoveUpDown {
+  0% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 100px;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
+}
+</style>
+<head>
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="/" class="w3-bar-item w3-button">HOME</a>
+     <a href="/loginUser" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user-circle"></i> LOGIN</a>
+  <a href="/register" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil"></i> CREATE ACCOUNT</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+      <i class="fa fa-search"></i>
+    </a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="/loginUser" class="w3-bar-item w3-button" onclick="toggleFunction()">LOGIN</a>
+    <a href="/register" class="w3-bar-item w3-button" onclick="toggleFunction()">CREATE ACCOUNT</a>
+    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button">SEARCH</a>
+  </div>
+</div>
+
+ 
+
+</head>
+<body>
+
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">TRIP <span class="w3-hide-small">PLANNER</span></span>
+  </div>
+
+
+
+<div class = "test">
+ 
+<span class="border" style="background-color:transparent; font-size:50px;color: #f7f7f7;"><i class="fa fa-angle-double-down"></i></span>
+
+</div>
+</div>
+
+
+
+<div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+  <h3 style="text-align:center;">Your Personal Advisor</h3>
+  <p > Trip Planner is a web application to help design and plan your next vacations. Customize your ideal vacation through personalizing your trips from start to finish. Choose from your favorite airlines, destinations, and restaurants. Discover new resturants and filter through them based on different criteria. Take the opportunity to hear
+  what others are saying about local places. Be your own personal trip advisor.</p>
+</div>
+
+<div class="bgimg-2">
+  <div class="caption">
+    <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">EXPLORE</span>
+        <p style="color:white;text-align: center;">Choose from thousands of direct flights and thousands of restaurants.</p>
+
+  </div>
+</div>
+
+<div style="position:relative;">
+<div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+    <p style="text-align: center;">Choose from thousands of direct flights and thousands of restaurants.</p>
+  </div>
+</div>
+
+<div class="bgimg-3">
+  <div class="caption">
+    <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">TRAVEL</span>
+    
+  </div>
+</div>
+
+<div style="position:relative;">
+<div style="color: #777;background-color:#5A5A5A;text-align:center;padding:50px 80px;text-align: justify;">
+    <p style="color:white;text-align: center;">Make the most of your travel time by visting exciting resturants that interest you.</p>
+  </div>
+
+</div>
+
+<div class="bgimg-1">
+  <div class="caption">
+    <span class="border"><a style="color:white; text-decoration:none" href="/register">GET STARTED</a></span>
+  </div>
+</div>
+
+</body>
+<script>
+
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+    }
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</html>
+

@@ -1,0 +1,17 @@
+1) Run through the Node-oracledb installation instructions here for your system: https://github.com/oracle/node-oracledb/blob/master/INSTALL.md
+   (It also requires Python 2.7 and a C Compiler, which you likely already have installed, but install them if you do not)
+
+2) npm install dotenv
+3) Create a file .env that will not be committed to the GitHub repository (it's already in .gitignore)
+4) Inside of .env, add two lines:
+    DB_USER='ACTUAL DATABASE USERNAME'
+    DB_PASSWORD='ACTUAL DATABASE PW'
+   (Be sure to replace the quotes with the actual username and password which can be found in a file in the shared Google Drive)
+
+5) I've added a function inside of app.js, handleDatabaseConnection, that takes in a database query, a list of values to substitute into the query, and a callback function that explains what should be done with the result once it is received.
+6) To test the connection, add the following lines near the top of app.js (be sure to remove them once you've finished testing):
+    handleDatabaseConnection('SELECT * FROM airports WHERE city = :city', ['Philadelphia'], function(result) {
+      console.log(result.rows);
+    });
+7) The above also should print out the resulting query to your terminal window. It also serves as an example of how to use the function.
+8) It turns out that the oracledb package introduces a bug where pressing Ctrl + C to exit out of the server doesn't actually work. I've added a couple of lines that start with "process.on('SIGINT', function() {" to handle this bug. If you need to perform any actions when quitting the server, you should add them here.

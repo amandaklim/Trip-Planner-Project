@@ -1,3 +1,5 @@
+if (process.env.NODE_ENV !== 'production') { require('dotenv').load(); }
+
 var express = require('express');
 var helpers = require('express-helpers');
 var app = express();
@@ -7,6 +9,17 @@ var User = require('./db/users.js');
 var handleError = require('./middlewares/handleError');
 var pageNotFound = require('./middlewares/pageNotFound');
 var isAuthenticated = require('./middlewares/isAuthenticated');
+var oracledb = require('oracledb');
+
+var connectionAttrs = {
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  connectString: 'cis450db.cct52rn5ie4j.us-east-1.rds.amazonaws.com:1521/ORCL'
+}
+
+process.on('SIGINT', function() {
+  process.exit(0);
+});
 
 app.engine('html', require('ejs').__express);
 app.set('view engine', 'html');
@@ -16,7 +29,6 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-
 var generateCookieSecret = function () {
   return 'iamasecret' + uuid.v4();
 };
@@ -25,13 +37,11 @@ var cookieSession = require('cookie-session');
 app.use(cookieSession({
   secret: generateCookieSecret()
 }));
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-
-
-
 
 var loginRouter = require('./routes/login');
 app.use('/', loginRouter);
@@ -64,8 +74,6 @@ app.get('/userHomePage/:id/:personName', function (req, res) {
       res.redirect('/feed/' + req.session.id + '/' + req.session.personName);
     }
   });
-
-
 });
 
 app.get('/logout', function (req, res) {
@@ -97,16 +105,10 @@ app.post('/register', function (req, res) {
         // req.session.interests = [];
         req.session.user = user;
         res.redirect('/feed/' + req.session.id + '/' + req.session.personName);
-
-
       }
-
     });
-
   });
 });
-
-
 
 app.use(handleError);
 app.use(pageNotFound);
@@ -116,5 +118,34 @@ app.listen(app.get('port'), function() {
   console.log('listening');
 });
 
+function handleDatabaseConnection(query, variables, callback) {
+  oracledb.getConnection(connectionAttrs, function(err, connection) {
+    console.log('Attempting to connect to Oracle DB');
+    if (err) {
+      console.error(err.message);
+      return;
+    }
+    console.log('Successfully connected to Oracle DB');
+    connection.execute(query, variables, function(err, result) {
+      if (err) {
+        console.error(err.message);
+        doRelease(connection);
+        return;
+      }
+      callback(result);
+      doRelease(connection);
+    });
+  });
+}
+
+function doRelease(connection) {
+  connection.close(function(err) {
+    if (err) {
+      console.error(err.message);
+    } else {
+      console.log('Successfully closed Oracle DB connection');
+    }
+  });
+}
 
 module.exports = app;

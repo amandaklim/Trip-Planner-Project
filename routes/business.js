@@ -3,6 +3,7 @@ var router = express.Router();
 // var userPostsDb = require('../db/userPosts');
 var usersDb = require('../db/users');
 var checkValidUser = require('../middlewares/checkValidUser');
+var oracleDb = require('../modules/oracledbModule');
 
 router.get('/business/:id/:personName/:city', function (req, res, next) {
 

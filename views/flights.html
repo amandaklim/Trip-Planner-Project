@@ -82,9 +82,14 @@ input, button {
     <div class="container">
       
         <h2 style="text-align:center" class="form-signin-heading">Here are the flights from <%=originCity%> to <%=destCity%>, <%= personName %></h2>
-  
+<% for(var i=0; i< results.length; i++) { for (var j = 0; j < results[i].length; j++) {%>
+   <div><%= results[i][j] %></div>
+<% }} %>
+        
+   
 
     </div> <!-- /container -->
+
     <!-- /start -->
 </br>
 </br>

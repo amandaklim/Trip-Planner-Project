@@ -1,148 +1,136 @@
-<!--  -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Businesses</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 
-<!doctype html>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-body, html {
-  height: 100%;
-  margin: 0;
-  font: 400 15px/1.8 "Lato", sans-serif;
-  color: #777;
-}
+    <style>
+      body, html {
+        height: 100%;
+        margin: 0;
+        font: 400 15px/1.8 "Lato", sans-serif;
+        color: #777;
+      }
 
-input, button {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%)
-}
-.button {
-    color:gray;
-    border-radius: 12px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-}
-.button:hover {
-    background-color: gray;
-    color: white;
-}
-</style>
+      input, button {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)
+      }
+      .button {
+          color:gray;
+          border-radius: 12px;
+          -webkit-transition-duration: 0.4s; /* Safari */
+          transition-duration: 0.4s;
+      }
+      .button:hover {
+          background-color: gray;
+          color: white;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </head>
 
-<script src="https://code.jquery.com/jquery-2.1.3.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<!-- 
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-
- <link rel="stylesheet" type="text/css" href="/css/signin.css" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"> -->
-<html lang="en">
-
-<head>
-<div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
-    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-      <i class="fa fa-bars"></i>
-    </a>
-    <a href="<%= '/feed/'+id+'/'+userName %>" class="w3-bar-item w3-button"><i class="fa fa-user-o"></i> PROFILE</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
-    <a href="/logout" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-sign-out"></i> LOG OUT</a>
-
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
-      <i class="fa fa-search"></i>
-    </a>
-  </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
-    <a href="/logout" class="w3-bar-item w3-button" onclick="toggleFunction()">LOGOUT</a>
-    <a href="#" class="w3-bar-item w3-button">SEARCH</a>
-  </div>
-</div>
-
- 
-
-</head>
-
-    <!-- Bootstrap core CSS -->
-<!--     <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
- -->
-    <!-- Custom styles for this template -->
-<!--     <link href="signin.css" rel="stylesheet">
- -->  
-</br>
-</br>
-</br>
-</br>
   <body>
+    <div class="w3-top">
+      <div class="w3-bar" id="myNavbar">
+        <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+          <i class="fa fa-bars"></i>
+        </a>
+        <a href="<%= '/feed/'+id+'/'+userName %>" class="w3-bar-item w3-button"><i class="fa fa-user-o"></i> PROFILE</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+        <a href="/logout" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-sign-out"></i> LOG OUT</a>
+
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+          <i class="fa fa-search"></i>
+        </a>
+      </div>
+
+      <!-- Navbar on small screens -->
+      <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+        <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
+        <a href="/logout" class="w3-bar-item w3-button" onclick="toggleFunction()">LOGOUT</a>
+        <a href="#" class="w3-bar-item w3-button">SEARCH</a>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="container">
-      
-        <h2 style="text-align:center" class="form-signin-heading">These are the businesses located in <%=city%> </br></br></br>
+      <h2 style="text-align:center" class="form-signin-heading">These are the businesses located in <%= city %> </br></br></br>
         Filter by: &emsp;
-                 <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-star"></i> Most Reviewed &emsp;</a>
-          <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian &emsp;</a>
-           <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-clock-o"></i> Operating Hours &emsp;</a>
-           </h2>
-
-
-
+        <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-star"></i> Most Reviewed &emsp;</a>
+        <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian &emsp;</a>
+        <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-clock-o"></i> Operating Hours &emsp;</a>
+      </h2>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Rating</th>
+            <th>Review Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (businesses.length == 0) { %>
+            <tr>
+              <td colspan="4">
+                There are no matching restaurants.
+              </td>
+            </tr>
+          <% } else { %>
+            <% for(var i = 0; i < businesses.length; i++) { %>
+              <tr>
+                <td><%= businesses[i][0] %></td>
+                <td><%= businesses[i][1] %></td>
+                <td><%= businesses[i][2] %></td>
+                <td><%= businesses[i][3] %></td>
+              </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
       </br>
-     
-
     </div> <!-- /container -->
-    <!-- /start -->
-</br>
-</br>
-</br>
-    <!-- /end -->
+    <script>
+      function onClick(element) {
+        document.getElementById("img01").src = element.src;
+        document.getElementById("modal01").style.display = "block";
+        var captionText = document.getElementById("caption");
+        captionText.innerHTML = element.alt;
+      }
 
+      // Change style of navbar on scroll
+      window.onscroll = function() {myFunction()};
+      function myFunction() {
+          var navbar = document.getElementById("myNavbar");
+          if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+              navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+          } else {
+              navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+          }
+      }
+
+      // Used to toggle the menu on small screens when clicking on the menu button
+      function toggleFunction() {
+          var x = document.getElementById("navDemo");
+          if (x.className.indexOf("w3-show") == -1) {
+              x.className += " w3-show";
+          } else {
+              x.className = x.className.replace(" w3-show", "");
+          }
+      }
+    </script>
   </body>
-
-  
-  <script>
-  // I should make a new page instead
-
-
-
-
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-
-// Change style of navbar on scroll
-window.onscroll = function() {myFunction()};
-function myFunction() {
-    var navbar = document.getElementById("myNavbar");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
-    } else {
-        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
-    }
-}
-
-// Used to toggle the menu on small screens when clicking on the menu button
-function toggleFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-
-  </script>
 </html>
-
-
-
-
-
-

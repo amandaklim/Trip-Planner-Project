@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 // var userPostsDb = require('../db/userPosts');
 var usersDb = require('../db/users');
+
 var checkValidUser = require('../middlewares/checkValidUser');
 
 router.get('/flights/:id/:personName', function (req, res, next) {

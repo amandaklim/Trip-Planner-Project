@@ -9,13 +9,6 @@ var User = require('./db/users.js');
 var handleError = require('./middlewares/handleError');
 var pageNotFound = require('./middlewares/pageNotFound');
 var isAuthenticated = require('./middlewares/isAuthenticated');
-var oracledb = require('oracledb');
-
-var connectionAttrs = {
-  user: '',
-  password: '',
-  connectString: 'cis450db.cct52rn5ie4j.us-east-1.rds.amazonaws.com:1521/ORCL'
-}
 
 process.on('SIGINT', function() {
   process.exit(0);
@@ -121,35 +114,5 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
   console.log('listening');
 });
-
-function handleDatabaseConnection(query, variables, callback) {
-  oracledb.getConnection(connectionAttrs, function(err, connection) {
-    console.log('Attempting to connect to Oracle DB');
-    if (err) {
-      console.error(err.message);
-      return;
-    }
-    console.log('Successfully connected to Oracle DB');
-    connection.execute(query, variables, function(err, result) {
-      if (err) {
-        console.error(err.message);
-        doRelease(connection);
-        return;
-      }
-      callback(result);
-      doRelease(connection);
-    });
-  });
-}
-
-function doRelease(connection) {
-  connection.close(function(err) {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log('Successfully closed Oracle DB connection');
-    }
-  });
-}
 
 module.exports = app;

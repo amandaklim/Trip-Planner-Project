@@ -84,15 +84,16 @@ router.get('/feed/:id/:personName', function (req, res, next) {
 });
 
 router.post('/feed/:id/:personName', function (req, res, next) {
-  // if (req.params.email == req.session.email) {
-  //   userPostsDb.addUserPost(req.params.email, req.body.text, req.params.personName, function(err) {
-  //     if (err) {
-  //       res.send('error' + err);
-  //     } else {
-  //       res.redirect('/feed/' + req.params.email + '/' + req.params.personName);
-  //     }
-  //   });
-  // }
+  usersDb.findUser(req.session.email, function (err2, user) {
+  req.session.personName = user.personName;
+  req.session.user = user;
+  req.session.id = user.id;
+  req.session.email = user.email;
+  req.session.originCity = req.body.originCity;
+  req.session.destCity = req.body.destCity;
+  res.redirect('/flights/' + user.id + '/' + user.personName);
+});
+
 });
 
 

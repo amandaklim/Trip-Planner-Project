@@ -12,8 +12,8 @@ var isAuthenticated = require('./middlewares/isAuthenticated');
 var oracledb = require('oracledb');
 
 var connectionAttrs = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  user: '',
+  password: '',
   connectString: 'cis450db.cct52rn5ie4j.us-east-1.rds.amazonaws.com:1521/ORCL'
 }
 
@@ -59,6 +59,10 @@ app.use('/', feedRouter);
 //app.use('/', similarRouter);
 //var settingsRouter = require('./routes/settings');
 //app.use('/', settingsRouter);
+var flightsRouter = require('./routes/flights');
+app.use('/', flightsRouter);
+var businessRouter = require('./routes/business');
+app.use('/', businessRouter);
 
 app.get('/userHomePage/:id/:personName', function (req, res) {
   User.findUser(req.body.id, function (err2, user) {

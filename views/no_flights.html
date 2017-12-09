@@ -81,31 +81,19 @@ input, button {
   <body>
     <div class="container">
       
-        <h2 style="text-align:center" class="form-signin-heading">Welcome <%= personName %>!</h2>
+        <h2 style="text-align:center" class="form-signin-heading">No flights from <%=originCity%> to <%=destCity%> available. Would you like to search for alternate flights, <%= personName %>?
+        </br>
+
+              <a style="font-size:70%" href="<%= '/business/'+id+'/'+userName+'/'+destCity%>" class="w3-bar-item w3-button"><i class="fa fa-map-pin"></i> <%=destCity%>&emsp;</a>
+        </h2>
   
 
     </div> <!-- /container -->
     <!-- /start -->
-
-
 </br>
-    <form method = "post">
-    </div> <!-- /container -->
-    <!-- /start -->
-    </br> 
-    <div style="text-align:center">Where are you departing from?</div>
-    </br>
-    <input id="originCity" type="originCity" name="originCity" required>
-    </br>
-    <div style="text-align:center">Where will you be traveling to?</div>
-    </br>
-    <input id="destCity" name="destCity" type="destCity" required>
-    </br>
-    </br>
-    <button id="submit" class="button btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-plane"></i>&emsp; Show me all flights &emsp;</button>
-    </form>
+</br>
+</br>
 
-    <!-- /end -->
   </body>
 
   

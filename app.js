@@ -97,7 +97,7 @@ app.post('/register', function (req, res) {
       User.findUser(req.body.email, function (err2, user) {
 
       if (err) {
-        res.send('Unable to register user');
+        res.render('register_invalid');
       } else {
 
         req.session.personName = req.body.personName;

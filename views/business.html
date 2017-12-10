@@ -63,27 +63,42 @@
     <br>
     <br>
     <div class="container">
-      <h2 style="text-align:center" class="form-signin-heading">These are the businesses located in <%= city %> </br></br></br>
-        Filter by: &emsp;
-        <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-star"></i> Most Reviewed &emsp;</a>
-        <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian &emsp;</a>
-        <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-clock-o"></i> Operating Hours &emsp;</a>
+      <h2 style="text-align:center" class="form-signin-heading">
+        These are the <%= ['vegetarian', 'vegan', 'kosher'].indexOf(businessType) != -1 ? businessType : '' %> businesses located in <%= city %> </br></br></br>
+        Filter by:
+        <a style="font-size:70%" href="<%= '/business/' + personName + '/' + city + '/vegetarian' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian</a>
+        <a style="font-size:70%" href="<%= '/business/' + personName + '/' + city + '/vegan' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegan</a>
+        <a style="font-size:70%" href="<%= '/business/' + personName + '/' + city + '/kosher' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Kosher</a>
+        <a style="font-size:70%" class="w3-bar-item w3-button"><i class="fa fa-clock-o"></i> Operating Hours</a>
       </h2>
       <br>
       <table class="table">
         <thead>
           <tr>
-            <th>Name</th>
+            <th>
+              Name
+              <a href="#" onClick="return sortTable('name', 'ASC');"><i class="fa fa-chevron-down"></i></a>
+              <a href="#" onClick="return sortTable('name', 'DESC');"><i class="fa fa-chevron-up"></i></a>
+            </th>
             <th>Address</th>
-            <th>Rating</th>
-            <th>Review Count</th>
+            <th>
+              Rating
+              <a href="#" onClick="return sortTable('rating', 'ASC');"><i class="fa fa-chevron-down"></i></a>
+              <a href="#" onClick="return sortTable('rating', 'DESC');"><i class="fa fa-chevron-up"></i></a>
+            </th>
+            <th>
+              Review Count
+              <a href="#" onClick="return sortTable('review_count', 'ASC');"><i class="fa fa-chevron-down"></i></a>
+              <a href="#" onClick="return sortTable('review_count', 'DESC');"><i class="fa fa-chevron-up"></i></a>
+            </th>
           </tr>
         </thead>
-        <tbody>
+
+        <tbody id="businesses">
           <% if (businesses.length == 0) { %>
             <tr>
               <td colspan="4">
-                There are no matching restaurants.
+                There are no matching businesses.
               </td>
             </tr>
           <% } else { %>
@@ -100,7 +115,24 @@
       </table>
       </br>
     </div> <!-- /container -->
+
     <script>
+      function sortTable(col, order) {
+        $.ajax('/business/<%= personName %>/<%= city %>/<%= businessType %>/sort/' + col + '/' + order).done(function(data) {
+          businesses = data['businesses'];
+          var text = '';
+          if (businesses.length == 0) {
+            text += "<tr><td colspan='4'>There are no matching businesses.<\/td><\/tr>";
+          } else {
+            for (var i = 0; i < businesses.length; i++) {
+              text += '<tr><td>' + businesses[i][0] + '<\/td><td>' + businesses[i][1] + '<\/td><td>' + businesses[i][2] + '<\/td><td>' + businesses[i][3] + '<\/td><\/tr>';
+            }
+          }
+          $('#businesses').html(text);
+        });
+        return false;
+      }
+
       function onClick(element) {
         document.getElementById("img01").src = element.src;
         document.getElementById("modal01").style.display = "block";

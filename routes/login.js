@@ -35,7 +35,7 @@ router.post('/loginUser', function (req, res, next) {
               req.session.user = user;
               req.session.id = user.id;
               req.session.email = user.email;
-              res.redirect('/feed/' + user.id + '/' + user.personName);
+              res.redirect('/welcome/' + user.id + '/' + user.personName);
             }
           });
 

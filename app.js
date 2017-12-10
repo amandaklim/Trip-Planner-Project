@@ -46,6 +46,12 @@ app.use('/', loginRouter);
 //pp.use('/', friendsRouter);
 var feedRouter = require('./routes/feed');
 app.use('/', feedRouter);
+var welcomeRouter = require('./routes/welcome');
+app.use('/', welcomeRouter);
+var suggestionsRouter = require('./routes/suggestions');
+app.use('/', suggestionsRouter);
+var getSuggestionsRouter = require('./routes/getSuggestions');
+app.use('/', getSuggestionsRouter);
 //var suggestionsRouter = require('./routes/suggestions');
 //app.use('/', suggestionsRouter);
 //var similarRouter = require('./routes/similar');
@@ -68,7 +74,7 @@ app.get('/userHomePage/:id/:personName', function (req, res) {
       req.session.personName = req.body.personName;
       req.session.id = req.body.id;
       req.session.user = user;
-      res.redirect('/feed/' + req.session.id + '/' + req.session.personName);
+      res.redirect('/welcome/' + req.session.id + '/' + req.session.personName);
     }
   });
 });
@@ -101,7 +107,7 @@ app.post('/register', function (req, res) {
         // req.session.homePosts = [];
         // req.session.interests = [];
         req.session.user = user;
-        res.redirect('/feed/' + req.session.id + '/' + req.session.personName);
+        res.redirect('/welcome/' + req.session.id + '/' + req.session.personName);
       }
     });
   });

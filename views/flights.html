@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <style>
 body, html {
   height: 100%;
@@ -47,7 +49,7 @@ input, button {
     <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
       <i class="fa fa-bars"></i>
     </a>
-    <a href="<%= '/feed/'+id+'/'+userName %>" class="w3-bar-item w3-button"><i class="fa fa-user-o"></i> PROFILE</a>
+    <a href="<%= '/welcome/'+id+'/'+userName %>" class="w3-bar-item w3-button"><i class="fa fa-user-o"></i> PROFILE</a>
     <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
     <a href="/logout" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-sign-out"></i> LOG OUT</a>
 
@@ -82,9 +84,37 @@ input, button {
     <div class="container">
       
         <h2 style="text-align:center" class="form-signin-heading">Here are the flights from <%=originCity%> to <%=destCity%>, <%= personName %></h2>
-<% for(var i=0; i< results.length; i++) { for (var j = 0; j < results[i].length; j++) {%>
-   <div><%= results[i][j] %></div>
-<% }} %>
+        </br>
+ <table class="table">
+        <thead>
+          <tr>
+            <th>Airline</th>
+            <th>Departing City Airport</th>
+            <th>Arriving City Airport</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <% if (results.length == 0) { %>
+            <tr>
+              <td colspan="4">
+                There are no flights from <%=originCity%> to <%=destCity%>
+              </td>
+            </tr>
+          <% } else { %>
+            <% for(var i = 0; i < results.length; i++) { %>
+              <tr>
+                <td><%= results[i][0] %></td>
+                <td><%= results[i][1] %></td>
+                <td><%= results[i][2] %></td>
+              
+              </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
+
+
         
    
 

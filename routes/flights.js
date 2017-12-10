@@ -14,18 +14,7 @@ router.get('/flights/:id/:personName', function (req, res, next) {
       //console.log(r2);
       var r = [];
       var incr = 0;
-      if (result.rows.length == 0) {
-        res.render('no_flights' , {
-      errorMessage: req.session.errorMessage,
-      personName: req.params.personName,
-      userName: req.session.personName,
-      originCity: req.session.originCity,
-      destCity: req.session.destCity,
-      //personEmailName: req.params.email,
-      //id: req.params.email
-      id: req.session.id
-        });
-      }
+
       for (var i = 0; i < result.rows.length; i++) {
       r[i] = [];
       incr = 0;

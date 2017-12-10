@@ -47,7 +47,7 @@ input, button {
     <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
       <i class="fa fa-bars"></i>
     </a>
-    <a href="<%= '/feed/'+id+'/'+userName %>" class="w3-bar-item w3-button"><i class="fa fa-user-o"></i> PROFILE</a>
+    <a href="<%= '/welcome/'+id+'/'+userName %>" class="w3-bar-item w3-button"><i class="fa fa-user-o"></i> PROFILE</a>
     <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
     <a href="/logout" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-sign-out"></i> LOG OUT</a>
 
@@ -81,19 +81,26 @@ input, button {
   <body>
     <div class="container">
       
-        <h2 style="text-align:center" class="form-signin-heading">No flights from <%=originCity%> to <%=destCity%> available. </br>Would you like to search for alternate flights, <%= personName %>?
+        <h2 style="text-align:center" class="form-signin-heading">Welcome <%= personName %>!
         </br>
 
-            
+  <h2 style="text-align:center" class="form-signin-heading">Choose one of the two options:
+  </br>
+      <a style="font-size:70%" href="<%= '/feed/'+id+'/'+userName%>" class="w3-bar-item w3-button"><i class="fa fa-map-pin"></i> I know where I am going &emsp;</a>
+
+      <a style="font-size:70%" href="<%= '/suggestions/'+id+'/'+userName%>" class="w3-bar-item w3-button"><i class="fa fa-map-pin"></i> I don't know where I am going &emsp;</a>
+      </h2>
         </h2>
   
 
     </div> <!-- /container -->
     <!-- /start -->
-</br>
-</br>
+
+
 </br>
 
+
+    <!-- /end -->
   </body>
 
   

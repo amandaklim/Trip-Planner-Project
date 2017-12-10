@@ -66,7 +66,7 @@
     <br>
     <br>
     <div class="container">
-      <h2 style="text-align:center" class="form-signin-heading">These are the businesses located in <%= city %> </br></br></br>
+      <h2 style="text-align:center" class="form-signin-heading">These are the highest rated businesses in cities that have a flight from <%= city %> </br></br></br>
         Filter by: &emsp;
         <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-star"></i> Most Reviewed &emsp;</a>
         <a style="font-size:70%" href="" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian &emsp;</a>
@@ -76,10 +76,12 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Rating</th>
-            <th>Review Count</th>
+            <th>Departure Airport Name</th>
+            <th>Source City</th>
+            <th>Destination Airport Name</th>
+            <th>Destination City</th>
+            <th>Business Name</th>
+            <th>Stars</th>
           </tr>
         </thead>
         <tbody>
@@ -96,6 +98,8 @@
                 <td><%= businesses[i][1] %></td>
                 <td><%= businesses[i][2] %></td>
                 <td><%= businesses[i][3] %></td>
+                <td><%= businesses[i][4] %></td>
+                <td><%= businesses[i][5] %></td>
               </tr>
             <% } %>
           <% } %>

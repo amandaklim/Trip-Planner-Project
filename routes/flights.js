@@ -27,7 +27,7 @@ router.get('/flights/:id/:personName', function (req, res, next) {
       
       
     }
-        res.render('flights', {
+      res.render('flights', {
       errorMessage: req.session.errorMessage,
       personName: req.params.personName,
       userName: req.session.personName,

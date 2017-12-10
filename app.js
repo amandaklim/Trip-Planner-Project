@@ -87,6 +87,22 @@ app.get('/logout', function (req, res) {
   res.render('index');
 });
 
+app.get('/contact', function(req, res) {
+  res.render('contact', {
+      errorMessage: req.session.errorMessage,
+      personName: req.params.personName,
+      userName: req.session.personName,
+      //personEmailName: req.params.email,
+      //id: req.params.email
+      id: req.session.id
+      // ,
+      // myPosts: req.session.myPosts,
+      // isFriends: req.session.isFriends,
+      // email: req.session.email,
+      // homePosts: homePosts
+    });
+})
+
 app.get('/register', function (req, res) {
   res.render('createAccount');
 });

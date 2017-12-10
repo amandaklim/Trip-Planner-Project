@@ -16,13 +16,6 @@
         color: #777;
       }
 
-      input, button {
-        position: relative;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%)
-      }
       .button {
           color:gray;
           border-radius: 12px;
@@ -47,7 +40,6 @@
         <a href="<%= '/welcome/'+id+'/'+userName %>" class="w3-bar-item w3-button"><i class="fa fa-user-o"></i> PROFILE</a>
         <a href="/contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
         <a href="/logout" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-sign-out"></i> LOG OUT</a>
-
       
       </div>
 
@@ -66,9 +58,10 @@
       <h2 style="text-align:center" class="form-signin-heading">
         These are the <%= ['vegetarian', 'vegan', 'kosher'].indexOf(businessType) != -1 ? businessType : '' %> businesses located in <%= city %> </br></br></br>
         Filter by:
-        <a style="font-size:70%" href="<%= '/business/' + personName + '/' + city + '/vegetarian' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian</a>
-        <a style="font-size:70%" href="<%= '/business/' + personName + '/' + city + '/vegan' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegan</a>
-        <a style="font-size:70%" href="<%= '/business/' + personName + '/' + city + '/kosher' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Kosher</a>
+        <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/all' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> All</a>
+        <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/vegetarian' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian</a>
+        <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/vegan' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegan</a>
+        <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/kosher' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Kosher</a>
         <a style="font-size:70%" class="w3-bar-item w3-button"><i class="fa fa-clock-o"></i> Operating Hours</a>
       </h2>
       <br>
@@ -97,14 +90,14 @@
         <tbody id="businesses">
           <% if (businesses.length == 0) { %>
             <tr>
-              <td colspan="4">
+              <td colspan="4" class="text-center">
                 There are no matching businesses.
               </td>
             </tr>
           <% } else { %>
             <% for(var i = 0; i < businesses.length; i++) { %>
               <tr>
-                <td><%= businesses[i][0] %></td>
+                <td><a href="#" data-toggle="modal" data-target="#businessModal" data-business="<%= businesses[i][4] %>"><%= businesses[i][0] %></a></td>
                 <td><%= businesses[i][1] %></td>
                 <td><%= businesses[i][2] %></td>
                 <td><%= businesses[i][3] %></td>
@@ -114,18 +107,96 @@
         </tbody>
       </table>
       </br>
-    </div> <!-- /container -->
 
+      <div class="modal fade" id="businessModal" tabindex="-1" role="dialog" aria-labelledby="businessModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button href="#" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="businessModalLabel">Business</h4>
+            </div>
+            <div class="modal-body">
+              <div class="clearfix">
+                <div class="pull-left">
+                  <p><strong>Address:</strong> <span id="businessAddress">330 Centennial Pkwy</span>, <span id="businessCity">North Las Vegas</span>, <span id="businessState">NV</span> <span id="businessPostalCode">890303</span></p>
+                  <p>
+                    <strong>Rating:</strong>
+                    <span id="businessRating0"><i class="fa fa-star"></i></span>
+                    <span id="businessRating1"><i class="fa fa-star"></i></span>
+                    <span id="businessRating2"><i class="fa fa-star"></i></span>
+                    <span id="businessRating3"><i class="fa fa-star-half-o"></i></span>
+                    <span id="businessRating4"><i class="fa fa-star-o"></i></span>
+                    (<span id="businessReviewCount">3</span> reviews)
+                  </p>
+                </div>
+                <div class="pull-right">
+                  <strong id="businessVegetarian" data-toggle="tooltip" data-placement="top" title="This business is vegetarian">V</strong>
+                  <strong id="businessVegan" data-toggle="tooltip" data-placement="top" title="This business is vegan">V+</strong>
+                  <strong id="businessKosher" data-toggle="tooltip" data-placement="top" title="This business is kosher">K</strong>
+                </div>
+              </div>
+              <p>
+                <strong>Open Hours:</strong>
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Day</th>
+                      <th>Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody id="businessHours">
+                    <tr>
+                      <td>Monday</td>
+                      <td>10:00am - 8:00pm</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /container -->
     <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+      $('#businessModal').on('show.bs.modal', function (event) {
+        var lnk = $(event.relatedTarget);
+        var businessId = lnk.data('business');
+        $.ajax('/businesses/id/' + businessId).done(function(data) {
+          $('#businessModalLabel').text(data['businessName']);
+          $('#businessAddress').text(data['businessAddress']);
+          $('#businessCity').text(data['businessCity']);
+          $('#businessState').text(data['businessState']);
+          $('#businessPostalCode').text(data['businessPostalCode']);
+          var businessRatings = data['businessRatings'];
+          for (var i = 0; i < businessRatings.length; i++) {
+            $('#businessRating' + i).html('<i class="fa ' + businessRatings[i] + '"></i>');
+          }
+          $('#businessReviewCount').text(data['businessReviewCount']);
+          data['businessVegetarian'] == 'TRUE' ? $('#businessVegetarian').show() : $('#businessVegetarian').hide()
+          data['businessVegan'] == 'TRUE' ? $('#businessVegan').show() : $('#businessVegan').hide();
+          data['businessKosher'] == 'TRUE' ? $('#businessKosher').show() : $('#businessKosher').hide();
+          var businessHours = data['businessHours'];
+          var text = '';
+          for (var i = 0; i < businessHours.length; i++) {
+            var hours = businessHours[i];
+            text += '<tr><td>' + (i > 0 && businessHours[i-1]['day'] == hours['day']? '' : hours['day']) + '</td><td>' + hours['openTime'] + ' - ' + hours['closeTime'] + '</td></tr>';
+          }
+          $('#businessHours').html(text);
+        });
+      });
+
       function sortTable(col, order) {
-        $.ajax('/business/<%= personName %>/<%= city %>/<%= businessType %>/sort/' + col + '/' + order).done(function(data) {
+        $.ajax('/businesses/city/<%= city %>/<%= businessType %>/sort/' + col + '/' + order).done(function(data) {
           businesses = data['businesses'];
           var text = '';
           if (businesses.length == 0) {
-            text += "<tr><td colspan='4'>There are no matching businesses.<\/td><\/tr>";
+            text += "<tr><td class='text-center' colspan='4'>There are no matching businesses.<\/td><\/tr>";
           } else {
             for (var i = 0; i < businesses.length; i++) {
-              text += '<tr><td>' + businesses[i][0] + '<\/td><td>' + businesses[i][1] + '<\/td><td>' + businesses[i][2] + '<\/td><td>' + businesses[i][3] + '<\/td><\/tr>';
+              text += '<tr><td><a href="#" data-toggle="modal" data-target="#businessModal" data-business="' + businesses[i][4] + '">' + businesses[i][0] + '</a><\/td><td>' + businesses[i][1] + '<\/td><td>' + businesses[i][2] + '<\/td><td>' + businesses[i][3] + '<\/td><\/tr>';
             }
           }
           $('#businesses').html(text);

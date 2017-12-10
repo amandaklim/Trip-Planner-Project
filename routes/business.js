@@ -5,16 +5,64 @@ var checkValidUser = require('../middlewares/checkValidUser');
 
 var oracledbModule = require('../modules/oracledbModule');
 
-router.get('/business/:personName/:city', function (req, res, next) {
-  res.redirect('/business/' + req.params.personName + '/' + req.params.city + '/all');
+router.get('/businesses/id/:businessId', function (req, res, next) {
+  var query = "SELECT * FROM businesses NATURAL JOIN business_hours WHERE business_id = :id ORDER BY CASE WHEN Day = 'Sunday' THEN 1 WHEN Day = 'Monday' THEN 2 WHEN Day = 'Tuesday' THEN 3 WHEN Day = 'Wednesday' THEN 4 WHEN Day = 'Thursday' THEN 5 WHEN Day = 'Friday' THEN 6 WHEN Day = 'Saturday' THEN 7 END ASC, OPEN_HOUR ASC"
+  oracledbModule.handleDatabaseConnection(
+    query,
+    [req.params.businessId],
+    function (result) {
+      res.setHeader('Content-Type', 'application/json');
+      var businessInfo = result.rows[0];
+      var businessHours = [];
+      for (var i = 0; i < result.rows.length; i++) {
+        var business = result.rows[i];
+        var hours = {
+          day: business[11],
+          openTime: makeTime(business[12], business[13]),
+          closeTime: makeTime(business[14], business[15])
+        };
+        businessHours.push(hours);
+      }
+
+      var rating = businessInfo[6];
+      var businessRatings = [];
+      for (var i = 1; i <= 5; i++) {
+        if (rating >= i) {
+          businessRatings.push('fa-star');
+        } else if (rating < i && rating > i - 1) {
+          businessRatings.push('fa-star-half-o');
+        } else {
+          businessRatings.push('fa-star-o');
+        }
+      }
+
+      res.json({
+        businessName: businessInfo[3],
+        businessAddress: businessInfo[1],
+        businessCity: businessInfo[2],
+        businessState: businessInfo[7],
+        businessPostalCode: businessInfo[4],
+        businessVegetarian: businessInfo[8],
+        businessVegan: businessInfo[9],
+        businessKosher: businessInfo[10],
+        businessRatings: businessRatings,
+        businessReviewCount: businessInfo[5],
+        businessHours: businessHours
+      });
+    }
+  );
 });
 
-router.get('/business/:personName/:city/:businessType', function (req, res, next) {
+router.get('/businesses/city/:city', function (req, res, next) {
+  res.redirect('/businesses/' + req.params.city + '/all');
+});
+
+router.get('/businesses/city/:city/:businessType', function (req, res, next) {
   query = getQueryForBusinessType(req.params.businessType);
   renderBusinesses(req, res, next, query);
 });
 
-router.get('/business/:personName/:city/:businessType/sort/:sortCol/:sortOrder', function(req, res, next) {
+router.get('/businesses/city/:city/:businessType/sort/:sortCol/:sortOrder', function(req, res, next) {
   query = getQueryForBusinessType(req.params.businessType) + ' ORDER BY ';
   switch(req.params.sortCol) {
     case 'rating':
@@ -47,7 +95,7 @@ function renderBusinesses(req, res, next, query) {
       function (result) {
         res.render('business', {
           errorMessage: req.session.errorMessage,
-          personName: req.params.personName,
+          personName: req.session.personName,
           userName: req.session.personName,
           businesses: result.rows,
           city: req.params.city,
@@ -60,16 +108,21 @@ function renderBusinesses(req, res, next, query) {
 }
 
 function getQueryForBusinessType(businessType) {
+  query = "SELECT name, address, stars, review_count, business_id FROM businesses WHERE city = :city"
   switch (businessType) {
     case 'vegetarian':
-      return "SELECT name, address, stars, review_count FROM businesses WHERE city = :city AND vegetarian = 'TRUE'"
+      return query + " AND vegetarian = 'TRUE'";
     case 'vegan':
-      return "SELECT name, address, stars, review_count FROM businesses WHERE city = :city AND vegan = 'TRUE'"
+      return query + " AND vegan = 'TRUE'";
     case 'kosher':
-      return "SELECT name, address, stars, review_count FROM businesses WHERE city = :city AND kosher = 'TRUE'"
+      return query + " AND kosher = 'TRUE'";
     default:
-      return 'SELECT name, address, stars, review_count FROM businesses WHERE city = :city';
+      return query;
   }
+}
+
+function makeTime(hour, minute) {
+  return (hour <= 12 ? (hour == 0 ? '12' : hour) : (hour - 12)) + ':' + (minute < 10 ? '0' + minute : minute) + (hour < 12 || hour == 24 ? 'am' : 'pm');
 }
 
 module.exports = router;

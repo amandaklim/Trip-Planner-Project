@@ -94,7 +94,7 @@ input, button {
         <tbody>
           <% if (results.length == 0) { %>
             <tr>
-              <td colspan="4">
+              <td class="text-center" colspan="3">
                 There are no flights from <%=originCity%> to <%=destCity%>
               </td>
             </tr>
@@ -122,9 +122,9 @@ input, button {
     <!-- /end -->
   <h2 style="text-align:center" class="form-signin-heading">See businesses located in
   </br>
-      <a style="font-size:70%" href="<%= '/business/'+id+'/'+userName+'/'+originCity%>" class="w3-bar-item w3-button"><i class="fa fa-map-pin"></i> <%=originCity%> &emsp;</a>
+      <a style="font-size:70%" href="<%= '/businesses/city/' + originCity + '/all' %>" class="w3-bar-item w3-button"><i class="fa fa-map-pin"></i> <%= originCity %></a>
 
-      <a style="font-size:70%" href="<%= '/business/'+id+'/'+userName+'/'+destCity%>" class="w3-bar-item w3-button"><i class="fa fa-map-pin"></i> <%=destCity%> &emsp;</a>
+      <a style="font-size:70%" href="<%= '/businesses/city/' + destCity + '/all'%>" class="w3-bar-item w3-button"><i class="fa fa-map-pin"></i> <%= destCity %></a>
       </h2>
   </body>
 

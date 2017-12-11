@@ -62,10 +62,47 @@
         <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/vegetarian' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian</a>
         <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/vegan' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegan</a>
         <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/kosher' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Kosher</a>
-        <a style="font-size:70%" class="w3-bar-item w3-button"><i class="fa fa-clock-o"></i> Operating Hours</a>
+         <a style="font-size:70%" href="" class="w3-bar-item w3-button" data-toggle="modal" data-target="#hoursModal"><i class="fa fa-clock-o"></i> Operating Hours &emsp;</a>
       </h2>
+          <div class="modal fade" id="hoursModal" tabindex="-1" role="dialog" aria-labelledby="hoursModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="hoursModalLabel">Choose times</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <form method = "post">
+    </div> <!-- /container -->
+    <!-- /start -->
+    
+    <div style="text-align:center;">Day </br> <input style="text-align:center;" id="day" type="day" name="day" required></div>
+    </br>
+    
+    
+    <div style="text-align:center;">Hour </br>  <input style="text-align:center;" id="hour" type="hour" name="hour" required></div>
+    </br>
+    
+ 
+    <div style="text-align:center;">Minute </br> <input id="minute" type="minute" name="minute" required></div>
+  
+    </br>
+    </br>
+    <div style="text-align:center;"><button id="submit" class="button" type="submit"><i class="fa fa-check"></i>&emsp; Show me businesses that are open &emsp;</button></div>
+    </br>
+    </form>
+      </div>
+      <div class="modal-footer">
+       <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+
       <br>
-      <table class="table">
+      <table class="table table-striped table-bordered">
         <thead>
           <tr>
             <th>

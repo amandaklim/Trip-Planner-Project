@@ -125,4 +125,32 @@ function makeTime(hour, minute) {
   return (hour <= 12 ? (hour == 0 ? '12' : hour) : (hour - 12)) + ':' + (minute < 10 ? '0' + minute : minute) + (hour < 12 || hour == 24 ? 'am' : 'pm');
 }
 
+//my code that does not work
+
+// router.post('/business/:id/:personName/:city', function (req, res, next) {
+//   getHours(req, res, next, 'SELECT b.name, b.address, b.city, h.open_hour, h.open_minute, h.close_hour, h.close_minute FROM businesses b NATURAL JOIN business_hours h WHERE ((h.open_hour < :hour) OR (h.open_hour = :hour1 AND h.open_minute <= :minute)) AND ((h.close_hour > :hour2) OR (h.close_hour = :hour3 AND h.close_minute >= :minute4)) AND h.day = :day AND b.city = :city');
+// });
+
+// function getHours(req, res, next, query) {
+//     usersDb.findUser(req.session.email, function (err, user) {
+//     oracledbModule.handleDatabaseConnection(
+//       'SELECT b.name, b.address, b.city, h.open_hour, h.open_minute, h.close_hour, h.close_minute FROM businesses b NATURAL JOIN business_hours h WHERE ((h.open_hour < :hour) OR (h.open_hour = :hour1 AND h.open_minute <= :minute)) AND ((h.close_hour > :hour2) OR (h.close_hour = :hour3 AND h.close_minute >= :minute4)) AND h.day = :day AND b.city = :city',
+//       [req.params.hour, req.params.hour, req.params.minute, req.params.hour, req.params.hour,
+//        req.params.minute, req.params.day, req.params.city],
+//       function (result) {
+//         console.log(result);
+//         res.render('business', {
+
+//           errorMessage: req.session.errorMessage,
+//           personName: req.params.personName,
+//           userName: req.session.personName,
+//           businesses: result.rows,
+//           city: req.params.city,
+//           id: req.session.id
+//         });
+//       }
+//     );
+//   });
+// }
+
 module.exports = router;

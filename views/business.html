@@ -56,52 +56,66 @@
     <br>
     <div class="container">
       <h2 style="text-align:center" class="form-signin-heading">
-        These are the <%= ['vegetarian', 'vegan', 'kosher'].indexOf(businessType) != -1 ? businessType : '' %> businesses located in <%= city %> </br></br></br>
+        These are the <%= ['vegetarian', 'vegan', 'kosher'].indexOf(businessType) != -1 ? businessType : '' %> businesses located in <%= city %> <%= businessType == 'open' ? 'that are open on ' + openTime.day + 's at ' + openTime.hour + ':' + openTime.minute + openTime.timeOfDay : '' %></br></br></br>
         Filter by:
-        <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/all' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> All</a>
-        <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/vegetarian' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegetarian</a>
-        <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/vegan' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Vegan</a>
-        <a style="font-size:70%" href="<%= '/businesses/city/' + city + '/kosher' %>" class="w3-bar-item w3-button"><i class="fa fa-shopping-basket"></i> Kosher</a>
-         <a style="font-size:70%" href="" class="w3-bar-item w3-button" data-toggle="modal" data-target="#hoursModal"><i class="fa fa-clock-o"></i> Operating Hours &emsp;</a>
+        <a style="font-size:70%" href="/businesses/city/<%= city %>/all" class="w3-button <%= businessType == 'all' ? 'w3-blue' : '' %>"><i class="fa fa-shopping-basket"></i> All</a>
+        <a style="font-size:70%" href="/businesses/city/<%= city %>/vegetarian" class="w3-button <%= businessType == 'vegetarian' ? 'w3-blue' : '' %>"><i class="fa fa-shopping-basket"></i> Vegetarian</a>
+        <a style="font-size:70%" href="/businesses/city/<%= city %>/vegan" class="w3-button <%= businessType == 'vegan' ? 'w3-blue' : '' %>"><i class="fa fa-shopping-basket"></i> Vegan</a>
+        <a style="font-size:70%" href="/businesses/city/<%= city %>/kosher" class="w3-button <%= businessType == 'kosher' ? 'w3-blue' : '' %>"><i class="fa fa-shopping-basket"></i> Kosher</a>
+        <a style="font-size:70%" href="" class="w3-button <%= businessType == 'open' ? 'w3-blue' : '' %>" data-toggle="modal" data-target="#hoursModal"><i class="fa fa-clock-o"></i> Operating Hours</a>
       </h2>
-          <div class="modal fade" id="hoursModal" tabindex="-1" role="dialog" aria-labelledby="hoursModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="hoursModalLabel">Choose times</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
+      <div class="modal fade" id="hoursModal" tabindex="-1" role="dialog" aria-labelledby="hoursModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title" id="hoursModalLabel">Choose a day and time</h4>
+            </div>
+            <div class="modal-body">
+              <form method="post" class="form-horizontal" action="/businesses/city/<%= city %>/open">
+                <div class="form-group">
+                  <label for="openDay" class="col-xs-2 control-label">Day</label>
+                  <div class="col-xs-10">
+                    <select class="form-control" name="day" id="openDay" required>
+                      <option>Sunday</option>
+                      <option>Monday</option>
+                      <option>Tuesday</option>
+                      <option>Wednesday</option>
+                      <option>Thursday</option>
+                      <option>Friday</option>
+                      <option>Saturday</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-xs-2 control-label">Time</label>
+                  <div class="col-xs-3">
+                    <select name="hour" class="form-control" id="openHour"></select>
+                  </div>
+                  <div class="col-xs-1 text-center">:</div>
+                  <div class="col-xs-3">
+                    <select name="minute" class="form-control" id="openMinute" required></select>
+                  </div>
+                  <div class="col-xs-3">
+                    <select name="timeOfDay" class="form-control" id="openTimeOfDay" required>
+                      <option>am</option>
+                      <option>pm</option>
+                    </select>
+                  </div>
+                </div>
+                <div style="text-align:center;"><button id="submit" class="button" type="submit"><i class="fa fa-check"></i>&emsp; Show me businesses that are open &emsp;</button></div>
+                </br>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-            <form method = "post">
-    </div> <!-- /container -->
-    <!-- /start -->
-    
-    <div style="text-align:center;">Day </br> <input style="text-align:center;" id="day" type="day" name="day" required></div>
-    </br>
-    
-    
-    <div style="text-align:center;">Hour </br>  <input style="text-align:center;" id="hour" type="hour" name="hour" required></div>
-    </br>
-    
- 
-    <div style="text-align:center;">Minute </br> <input id="minute" type="minute" name="minute" required></div>
-  
-    </br>
-    </br>
-    <div style="text-align:center;"><button id="submit" class="button" type="submit"><i class="fa fa-check"></i>&emsp; Show me businesses that are open &emsp;</button></div>
-    </br>
-    </form>
-      </div>
-      <div class="modal-footer">
-       <!--  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
-    </div>
-  </div>
 
       <br>
+
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -197,6 +211,14 @@
     <script>
       $(function () {
         $('[data-toggle="tooltip"]').tooltip();
+        $hourSelect = $('#openHour');
+        for (var hour = 1; hour <= 12; hour++) {
+          $hourSelect.append('<option>' + hour + '<\/option>');
+        }
+        $minuteSelect = $('#openMinute');
+        for (var minute = 0; minute <= 59; minute++) {
+          $minuteSelect.append('<option>' + (minute < 10 ? '0' + minute : minute) + '<\/option>');
+        }
       });
       $('#businessModal').on('show.bs.modal', function (event) {
         var lnk = $(event.relatedTarget);
@@ -226,7 +248,11 @@
       });
 
       function sortTable(col, order) {
-        $.ajax('/businesses/city/<%= city %>/<%= businessType %>/sort/' + col + '/' + order).done(function(data) {
+        var query = '';
+        if ('<%= businessType %>' == 'open') {
+          query = '?day=<%= openTime.day %>&hour=<%= openTime.hour %>&minute=<%= openTime.minute %>&timeOfDay=<%= openTime.timeOfDay %>';
+        }
+        $.ajax('/businesses/city/<%= city %>/<%= businessType %>/sort/' + col + '/' + order + query).done(function(data) {
           businesses = data['businesses'];
           var text = '';
           if (businesses.length == 0) {

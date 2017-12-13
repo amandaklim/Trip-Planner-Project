@@ -5,6 +5,47 @@ var checkValidUser = require('../middlewares/checkValidUser');
 
 var oracledbModule = require('../modules/oracledbModule');
 
+router.get('/businesses/city/:city', function (req, res, next) {
+  res.redirect('/businesses/city/' + req.params.city + '/all');
+});
+
+router.get('/businesses/city/:city/:businessType', function (req, res, next) {
+  var query = getQueryForBusinessType(req.params.businessType);
+  var queryParams = getQueryParamsForBusinessType(req);
+  renderBusinesses(req, res, next, query, queryParams);
+});
+
+router.get('/businesses/city/:city/:businessType/sort/:sortCol/:sortOrder', function(req, res, next) {
+  var query = getQueryForBusinessType(req.params.businessType) + ' ORDER BY ';
+  var queryParams = getQueryParamsForBusinessType(req);
+
+  switch(req.params.sortCol) {
+    case 'rating':
+      query += 'stars ';
+      break;
+    case 'review_count':
+      query += 'review_count ';
+      break;
+    default:
+      query += 'name ';
+      break;
+  }
+  query += (['ASC', 'DESC'].indexOf(req.params.sortOrder) != -1 ? req.params.sortOrder : 'ASC');
+
+  oracledbModule.handleDatabaseConnection(
+    query,
+    queryParams,
+    function (result) {
+      res.setHeader('Content-Type', 'application/json');
+      res.json({ businesses: result.rows });
+    }
+  );
+});
+
+router.post('/businesses/city/:city/open', function (req, res, next) {
+  res.redirect('/businesses/city/' + req.params.city + '/open' + '?day=' + req.body.day + '&hour=' + req.body.hour + '&minute=' + req.body.minute + '&timeOfDay=' + req.body.timeOfDay);
+});
+
 router.get('/businesses/id/:businessId', function (req, res, next) {
   var query = "SELECT * FROM businesses NATURAL JOIN business_hours WHERE business_id = :id ORDER BY CASE WHEN Day = 'Sunday' THEN 1 WHEN Day = 'Monday' THEN 2 WHEN Day = 'Tuesday' THEN 3 WHEN Day = 'Wednesday' THEN 4 WHEN Day = 'Thursday' THEN 5 WHEN Day = 'Friday' THEN 6 WHEN Day = 'Saturday' THEN 7 END ASC, OPEN_HOUR ASC"
   oracledbModule.handleDatabaseConnection(
@@ -53,45 +94,11 @@ router.get('/businesses/id/:businessId', function (req, res, next) {
   );
 });
 
-router.get('/businesses/city/:city', function (req, res, next) {
-  res.redirect('/businesses/' + req.params.city + '/all');
-});
-
-router.get('/businesses/city/:city/:businessType', function (req, res, next) {
-  query = getQueryForBusinessType(req.params.businessType);
-  renderBusinesses(req, res, next, query);
-});
-
-router.get('/businesses/city/:city/:businessType/sort/:sortCol/:sortOrder', function(req, res, next) {
-  query = getQueryForBusinessType(req.params.businessType) + ' ORDER BY ';
-  switch(req.params.sortCol) {
-    case 'rating':
-      query += 'stars ';
-      break;
-    case 'review_count':
-      query += 'review_count ';
-      break;
-    default:
-      query += 'name ';
-      break;
-  }
-  query += (['ASC', 'DESC'].indexOf(req.params.sortOrder) != -1 ? req.params.sortOrder : 'ASC');
-
-  oracledbModule.handleDatabaseConnection(
-    query,
-    [req.params.city],
-    function (result) {
-      res.setHeader('Content-Type', 'application/json');
-      res.json({ businesses: result.rows });
-    }
-  );
-});
-
-function renderBusinesses(req, res, next, query) {
+function renderBusinesses(req, res, next, query, queryParams) {
   usersDb.findUser(req.session.email, function (err, user) {
     oracledbModule.handleDatabaseConnection(
       query,
-      [req.params.city],
+      queryParams,
       function (result) {
         res.render('business', {
           errorMessage: req.session.errorMessage,
@@ -100,7 +107,8 @@ function renderBusinesses(req, res, next, query) {
           businesses: result.rows,
           city: req.params.city,
           id: req.session.id,
-          businessType: req.params.businessType
+          businessType: req.params.businessType,
+          openTime: req.query
         });
       }
     );
@@ -108,49 +116,44 @@ function renderBusinesses(req, res, next, query) {
 }
 
 function getQueryForBusinessType(businessType) {
-  query = "SELECT name, address, stars, review_count, business_id FROM businesses WHERE city = :city"
+  query = 'SELECT name, address, stars, review_count, business_id ';
   switch (businessType) {
+    case 'open':
+      return query + 'FROM businesses NATURAL JOIN business_hours WHERE ((open_hour < :hour) OR (open_hour = :hour AND open_minute <= :minute)) AND ((close_hour > :hour) OR (close_hour = :hour AND close_minute >= :minute)) AND day = :day AND city = :city';
     case 'vegetarian':
-      return query + " AND vegetarian = 'TRUE'";
+      return query + "FROM businesses WHERE city = :city AND vegetarian = 'TRUE'";
     case 'vegan':
-      return query + " AND vegan = 'TRUE'";
+      return query + "FROM businesses WHERE city = :city AND vegan = 'TRUE'";
     case 'kosher':
-      return query + " AND kosher = 'TRUE'";
+      return query + "FROM businesses WHERE city = :city AND kosher = 'TRUE'";
     default:
-      return query;
+      return query + 'FROM businesses WHERE city = :city';
+  }
+}
+
+function getQueryParamsForBusinessType(req) {
+  if (req.params.businessType == 'open') {
+    var hour = makeHour(req.query.hour, req.query.timeOfDay);
+    var minute = parseInt(req.query.minute);
+    return [hour, hour, minute, hour, hour, minute, req.query.day, req.params.city];
+  } else {
+    return [req.params.city];
+  }
+}
+
+function makeHour(hour, timeOfDay) {
+  var hourInt = parseInt(hour);
+  if (hourInt == 12 && timeOfDay == 'am') {
+    return 0;
+  } else if (hourInt != 12 && timeOfDay == 'pm') {
+    return hourInt + 12;
+  } else {
+    return hourInt;
   }
 }
 
 function makeTime(hour, minute) {
   return (hour <= 12 ? (hour == 0 ? '12' : hour) : (hour - 12)) + ':' + (minute < 10 ? '0' + minute : minute) + (hour < 12 || hour == 24 ? 'am' : 'pm');
 }
-
-//my code that does not work
-
-// router.post('/business/:id/:personName/:city', function (req, res, next) {
-//   getHours(req, res, next, 'SELECT b.name, b.address, b.city, h.open_hour, h.open_minute, h.close_hour, h.close_minute FROM businesses b NATURAL JOIN business_hours h WHERE ((h.open_hour < :hour) OR (h.open_hour = :hour1 AND h.open_minute <= :minute)) AND ((h.close_hour > :hour2) OR (h.close_hour = :hour3 AND h.close_minute >= :minute4)) AND h.day = :day AND b.city = :city');
-// });
-
-// function getHours(req, res, next, query) {
-//     usersDb.findUser(req.session.email, function (err, user) {
-//     oracledbModule.handleDatabaseConnection(
-//       'SELECT b.name, b.address, b.city, h.open_hour, h.open_minute, h.close_hour, h.close_minute FROM businesses b NATURAL JOIN business_hours h WHERE ((h.open_hour < :hour) OR (h.open_hour = :hour1 AND h.open_minute <= :minute)) AND ((h.close_hour > :hour2) OR (h.close_hour = :hour3 AND h.close_minute >= :minute4)) AND h.day = :day AND b.city = :city',
-//       [req.params.hour, req.params.hour, req.params.minute, req.params.hour, req.params.hour,
-//        req.params.minute, req.params.day, req.params.city],
-//       function (result) {
-//         console.log(result);
-//         res.render('business', {
-
-//           errorMessage: req.session.errorMessage,
-//           personName: req.params.personName,
-//           userName: req.session.personName,
-//           businesses: result.rows,
-//           city: req.params.city,
-//           id: req.session.id
-//         });
-//       }
-//     );
-//   });
-// }
 
 module.exports = router;

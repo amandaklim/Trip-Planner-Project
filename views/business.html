@@ -56,7 +56,7 @@
     <br>
     <div class="container">
       <h2 style="text-align:center" class="form-signin-heading">
-        These are the <%= ['vegetarian', 'vegan', 'kosher'].indexOf(businessType) != -1 ? businessType : '' %> businesses located in <%= city %> <%= businessType == 'open' ? 'that are open on ' + openTime.day + 's at ' + openTime.hour + ':' + openTime.minute + openTime.timeOfDay : '' %></br></br></br>
+        These are the <%= ['vegetarian', 'vegan', 'kosher'].indexOf(businessType) != -1 ? businessType : '' %> businesses located in <%= city %> <%= (businessType == 'open' && openTime.day && openTime.hour && openTime.minute && openTime.timeOfDay) ? 'that are open on ' + openTime.day + 's at ' + openTime.hour + ':' + openTime.minute + openTime.timeOfDay : '' %></br></br></br>
         Filter by:
         <a style="font-size:70%" href="/businesses/city/<%= city %>/all" class="w3-button <%= businessType == 'all' ? 'w3-blue' : '' %>"><i class="fa fa-shopping-basket"></i> All</a>
         <a style="font-size:70%" href="/businesses/city/<%= city %>/vegetarian" class="w3-button <%= businessType == 'vegetarian' ? 'w3-blue' : '' %>"><i class="fa fa-shopping-basket"></i> Vegetarian</a>

@@ -201,4 +201,30 @@ Social Media Integration
 
 For a more tailored user experience, a travel diary or travel vlog incorporated into one’s profile could enhance personalization and make the web application more user tailored. Searching for other users on the web application and making the web application as more of a social media platform as well as a trip planner would also be an interesting possible future extension. More user options to add a bio and create a more detailed profile would also incorporate the site as a more fun social media platform as well as a utilitarian and helpful platform. Likewise, login to relevant social media such as Instagram, Facebook, and Twitter would also help to enhance the app and bring interest to the app from friends across different social media. 
 
+### Screenshots
+
 ![p1](https://user-images.githubusercontent.com/22601709/36564905-e1184c80-17ec-11e8-9f39-f0cd63a1752b.png)
+![p2](https://user-images.githubusercontent.com/22601709/36564928-fc9bf736-17ec-11e8-9e1d-286797260682.png)
+![p3](https://user-images.githubusercontent.com/22601709/36564930-fcb4f9ac-17ec-11e8-9208-6f0fa35b8c35.png)
+![p4](https://user-images.githubusercontent.com/22601709/36564931-fcf96894-17ec-11e8-8121-b28632f0ff91.png)
+![p5](https://user-images.githubusercontent.com/22601709/36564932-fd1643c4-17ec-11e8-8b22-a725fe8bf6dd.png)
+![p6](https://user-images.githubusercontent.com/22601709/36564934-fd370eba-17ec-11e8-853f-31bb9b3d5fb8.png)
+![p7](https://user-images.githubusercontent.com/22601709/36564935-fd665738-17ec-11e8-8b5f-8ec7c8a232cc.png)
+![p8](https://user-images.githubusercontent.com/22601709/36564936-fd8aa278-17ec-11e8-8245-24a9e8c247ed.png)
+![p9](https://user-images.githubusercontent.com/22601709/36564937-fd9ab334-17ec-11e8-8183-aa412a87cb59.png)
+![p10](https://user-images.githubusercontent.com/22601709/36564938-fdbdb23a-17ec-11e8-8f28-a0e41f1fe3f2.png)
+![p11](https://user-images.githubusercontent.com/22601709/36564939-fdceafea-17ec-11e8-8fce-93142e4e33e2.png)
+![p12](https://user-images.githubusercontent.com/22601709/36564940-fde9debe-17ec-11e8-9e96-6756f025741d.png)
+![p13](https://user-images.githubusercontent.com/22601709/36564941-fe050da6-17ec-11e8-80cd-1b6ad63caf89.png)
+![p14](https://user-images.githubusercontent.com/22601709/36564942-fe101598-17ec-11e8-94e9-5b884020f079.png)
+![p15](https://user-images.githubusercontent.com/22601709/36564943-fe1bc190-17ec-11e8-9d37-1407d37ee6de.png)
+![p16](https://user-images.githubusercontent.com/22601709/36564944-fe2872be-17ec-11e8-9697-6e62a032820e.png)
+![p17](https://user-images.githubusercontent.com/22601709/36564945-fe635492-17ec-11e8-9d34-71e0173fd37e.png)
+![p18](https://user-images.githubusercontent.com/22601709/36564946-fe6f6d9a-17ec-11e8-82b6-741396dbd77d.png)
+![p19](https://user-images.githubusercontent.com/22601709/36564947-fe78a4be-17ec-11e8-924a-28e5a6ed7d00.png)
+![p20](https://user-images.githubusercontent.com/22601709/36564948-fe80a772-17ec-11e8-8542-2f119b7675c6.png)
+![p21](https://user-images.githubusercontent.com/22601709/36564949-fe8aacd6-17ec-11e8-870b-e7ff3136c12e.png)
+![p22](https://user-images.githubusercontent.com/22601709/36564950-fe956cde-17ec-11e8-9b45-ed40238df352.png)
+![p23](https://user-images.githubusercontent.com/22601709/36564951-fea3fbb4-17ec-11e8-8e52-585dcdcb687f.png)
+![p24](https://user-images.githubusercontent.com/22601709/36564952-feb50792-17ec-11e8-8801-cdd6b8621aad.png)
+![p25](https://user-images.githubusercontent.com/22601709/36564953-fec29358-17ec-11e8-8481-cf6e9a8f4293.png)

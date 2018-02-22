@@ -26,27 +26,40 @@ For our web platform, we used HTML, CSS, Bootstrap, EJS, and Node.js, and Expres
 ### Key Features
 
 Users are first presented with a homepage that has a short description of the goals of the app. The user can scroll down to click “Get Started” to create an account or choose Log In or Create Account from the taskbar at the top. 
+
 The user can sign up to use our platform. For users who have already registered, they can sign in with their credentials to access the platform. Appropriate error checking for if an account is already associated with an email when creating an account or an incorrect email or password is used to log in. 
+
 When logged in, the user can select from two options: those who have a specific itinerary in mind can choose option 1: “I have an itinerary ” or for those who don’t, they can choose option 2: “I’m feeling adventurous”.
 For those choosing option 1, they can input their departure city (i.e. their current location) and their desired destination to see all flights available for their travel.
+
 The user can view all information about the available airlines, including airline name, name of airport in departing city and name of the airport in arriving city.
+
 The user can view informations in either source or destination city by selecting one of the two options under “See businesses located in” found on the same page.
+
 The user can view all businesses located in this city including detailed information about the name, adress, rating, review count of the business.
+
 For the name, rating, and review count columns, the user can sort the rows by any of the three columns by clicking on the arrows in the header.
+
 To learn more about specific points of interests, the user can click the business name after which a pop-up will appear that displays the address, star rating, and operating hours of the business organized by the days of the week.
+
 For users with dietary preferences, they can choose to filter the results for vegetarian, vegan, or kosher options.
+
 The user can click on “Is Open” to input times to filter through businesses that are open at their desired time. 
+
 For users without an itinerary in mind, they can choose option 2, where they can input their current city to view the highest-rated businesses that are reachable (i.e. have flights originating from their source city) from their current city.
+
 Users can click on a contact page to see details about the databases and the developers. The taskbar also includes a logout option and the option to return to the welcome page that user sees when the first log in to the app.
 
 ### Technical Challenges
 
 Setting up
+
 Most of the technical challenges that we encountered with our project happened during initial setup. We encountered a lot of technical issues with getting the SQL RDS instance up and running. While creating the actual database itself wasn’t difficult, we struggled to actually connect to it since connecting required setting up additional security groups that would allow for us to connect from outside computers.
 
 We encountered another major challenge when attempting to connect to our Amazon RDS Oracle Database from Node JS. There was a struggle to get the Node JS oracledb package setup. There are a lot of applications that are required just to use the oracledb package and the instructions that we found online had holes that we had to debug ourselves.
 
 Yelp Reviews
+
 We were unable to incorporate Yelp reviews into our project. The review.json file was very large (~3.7 GB), causing Python to take up all system memory and over 40 GB of swap space when we tried loading the review.json file into a pandas dataframe. Eventually, we resorted to mongoDB to store the reviews and came up with a query to fetch the longest 5 reviews for each business. Technical difficulties arose with connecting mongo db to Node.js app, but the instructions to create the relevant mongo db that work in the mongo shell so are as follow:
 
 mongod
@@ -68,9 +81,13 @@ The six .json files Yelp provides are business.json, review.json, user.json, che
 
 ### Data Cleaning
 In order to clean business.json, we used Python 3.6. In particular, we first loaded the data into a pandas dataframe. Next, we filtered out businesses which were no longer open (is_open column).
+
 Some of the columns were unusable, such as neighborhood, longitude, and latitude. Longitude and latitude were given only to 4 characters, meaning that most coordinates were to the nearest tenth of a degree. This corresponded roughly to distances on the order of 10 miles, and thus uninformative when trying to sort businesses by distance from airports.
+
 Next, we required that valid businesses have non-null hours, address, city, and state. We dropped businesses without these attributes.
+
 We required that the businesses of interest were food-related. This meant manually reading through the Yelp categories and picking out those which were food-related, and keeping only those businesses which fell into at least one of the chosen categories.
+
 In order to make queries more easily written, we split the hours of a business by start time, end time, and day. The information on hours was originally in a single dict object associated with each business. We eventually made a separate table which had the business hours by day linked to the original businesses table by business_id. Once these tasks were completed, we dumped the database into a .sql file and uploaded the data to our Oracle SQL Server AWS instance.
 
 The OpenFlights dataset was already in a MySQL database, from our initial two homeworks, and thus we simply dumped the database into a .sql file and uploaded to the server. The OpenFlights dataset was split into airports, airlines, and routes, with routes connecting airlines (by airline_id) to airports (by IATA source_id and destination_id).
@@ -99,6 +116,7 @@ AND r.destination_id in (SELECT DISTINCT airport_id
 
 
 Timings: 3 fetched in 0.118 s, 0.176 s, 0.116 s, with indices on routes.source_id and routes.destination_id. 0.153 s, 0.149 s, 0.187 s without. In everyday experience, airline routes do not change frequently, and airport ids will almost never change. Source_id and destination_id are relatively safe targets to index for routes.
+
 Query 2
 What are the highest rated (rating of 4 or greater) businesses at the destination with a certain number of reviews? (Query requires filling in a string for DESTINATION_CITY and number for MIN_REVIEWS)
 SELECT city, business_id, name, stars, review_count
@@ -170,4 +188,4 @@ Google Maps API
 	Another possible feature would be to use the Google Maps API to help order businesses by distance from the starting location requested by the user. The Yelp data only includes longitudes and latitudes up to 4 characters, meaning that for businesses in the US (latitude > 10), the vertical accuracy is only to the nearest tenth of a degree. This corresponds to roughly 7 miles, which is far from ideal. 
 
 Social Media Integration
-For a more tailored user experience, a travel diary or travel vlog incorporated into one’s profile could enhance personalization and make the web application more user tailored. Searching for other users on the web application and making the web application as more of a social media platform as well as a trip planner would also be an interesting possible future extension. More user options to add a bio and create a more detailed profile would also incorporate the site as a more fun social media platform as well as a utilitarian and helpful platform. Likewise, login to relevant social media such as Instagram, Facebook, and Twitter would also help to enhance the app and bring interest to the app from friends across different social media. 
+	For a more tailored user experience, a travel diary or travel vlog incorporated into one’s profile could enhance personalization and make the web application more user tailored. Searching for other users on the web application and making the web application as more of a social media platform as well as a trip planner would also be an interesting possible future extension. More user options to add a bio and create a more detailed profile would also incorporate the site as a more fun social media platform as well as a utilitarian and helpful platform. Likewise, login to relevant social media such as Instagram, Facebook, and Twitter would also help to enhance the app and bring interest to the app from friends across different social media. 

@@ -200,3 +200,5 @@ Another possible feature would be to use the Google Maps API to help order busin
 Social Media Integration
 
 For a more tailored user experience, a travel diary or travel vlog incorporated into one’s profile could enhance personalization and make the web application more user tailored. Searching for other users on the web application and making the web application as more of a social media platform as well as a trip planner would also be an interesting possible future extension. More user options to add a bio and create a more detailed profile would also incorporate the site as a more fun social media platform as well as a utilitarian and helpful platform. Likewise, login to relevant social media such as Instagram, Facebook, and Twitter would also help to enhance the app and bring interest to the app from friends across different social media. 
+
+![p1](https://user-images.githubusercontent.com/22601709/36564905-e1184c80-17ec-11e8-9f39-f0cd63a1752b.png)

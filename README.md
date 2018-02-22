@@ -8,7 +8,7 @@ Trip Planner is a web application to help design and plan your next vacations. C
 
 **Screenshots of our app are found on the last pages on this document
 
-**The following template from https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm and CSS files provided by w3schools was used to develop the UI and frontend.
+**The following [template](https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm ) and CSS files provided by w3schools was used to develop the UI and frontend.
 
 ### Basic Architecture
 

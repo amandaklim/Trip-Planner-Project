@@ -8,7 +8,7 @@ Trip Planner is a web application to help design and plan your next vacations. C
 
 **Screenshots of our app are found on the last pages on this document
 
-**The following [template](https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm ) and CSS files provided by w3schools was used to develop the UI and frontend.
+**The webpage [template](https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm ) and CSS files provided by w3schools was used to develop the UI and frontend.
 
 ### Basic Architecture
 
@@ -21,7 +21,7 @@ MongoDB (local)
 Data cleaning/processing
 Python 3.6 (as part of the Anaconda package) was used as the primary tool for data cleaning. business.json was imported into a pandas dataframe, and was cleaned by index slicing. The business_hours table was created from the resulting business dataframe, also in Python.
 
-For our web platform, we used HTML, CSS, Bootstrap, EJS, and Node.js, and Express to create our frontend while we used MySQL for our relational database and MongoDB/Mongoose for the NoSQL component for the backend. The following template from https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm and CSS files provided by w3schools was used to develop the UI and frontend.
+For our web platform, we used HTML, CSS, Bootstrap, EJS, and Node.js, and Express to create our frontend while we used MySQL for our relational database and MongoDB/Mongoose for the NoSQL component for the backend.
 
 ### Key Features
 

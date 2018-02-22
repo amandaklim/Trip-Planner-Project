@@ -6,8 +6,6 @@ When traveling, people often want to know what restaurants and points of interes
 
 Trip Planner is a web application to help design and plan your next vacations. Customize your ideal vacation through personalizing your trips from start to finish. Choose from your favorite airlines, destinations, and restaurants. Discover new restaurants and filter through them based on different criteria. Take the opportunity to hear what others are saying about local places. Be your own personal trip advisor.
 
-**Screenshots of our app are found on the last pages on this document
-
 **The webpage [template](https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm ) and CSS files provided by w3schools was used to develop the UI and frontend.
 
 ### Basic Architecture

@@ -101,6 +101,7 @@ The following scripts were evaluated on the AWS instance of the Oracle SQL datab
 ### Query 1
 
 Is there a route from source location city SOURCE_CITY to destination location city DESTINATION_CITY? (Query requires filling in strings for :source_city and :destination_city)
+
 SELECT al.airline_id, al.airline_name, r.source_id,
     sa.airport_name AS source_airport, r.destination_id,
     da.airport_name AS destination_airport 
@@ -118,7 +119,9 @@ AND r.destination_id in (SELECT DISTINCT airport_id
 Timings: 3 fetched in 0.118 s, 0.176 s, 0.116 s, with indices on routes.source_id and routes.destination_id. 0.153 s, 0.149 s, 0.187 s without. In everyday experience, airline routes do not change frequently, and airport ids will almost never change. Source_id and destination_id are relatively safe targets to index for routes.
 
 ### Query 2
+
 What are the highest rated (rating of 4 or greater) businesses at the destination with a certain number of reviews? (Query requires filling in a string for DESTINATION_CITY and number for MIN_REVIEWS)
+
 SELECT city, business_id, name, stars, review_count
 FROM businesses
 WHERE stars >= 4.0 AND city = :city AND review_count > 3
@@ -132,6 +135,7 @@ If the minimum review count is changed to 100, the timings become: 0.078 s, 0.07
 ### Query 3
 
 What are the business hours for a specific business in order of Sunday-Saturday? (Query requires filling in a business id for :id)
+
 SELECT *
 FROM businesses NATURAL JOIN business_hours
 WHERE business_id = :id
@@ -143,6 +147,7 @@ Timings: 7 in 0.150 s, 0.165 s, 0.154 s, with business id '_ANM7INCSWVJ8_dQxEWKZ
 ### Query 4
 
 What businesses are open on a specific day and time in a specific city? (Query requires filling in a string for CITY, DAY, HOUR, and MINUTE)
+
 SELECT b.name, b.address, b.city, h.open_hour, h.open_minute, h.close_hour, h.close_minute
 FROM businesses b NATURAL JOIN business_hours h
 WHERE ((h.open_hour < :hour) OR (h.open_hour = :hour AND h.open_minute <= :minute)) AND
@@ -153,6 +158,7 @@ Timings: 4008 results in 5.264 s, 3.059 s, 7.396 s, without indexing on day for 
 ### Query 5
 
 What restaurants have vegetarian options in city CITY? (Query required filling in a string for CITY)
+
 SELECT name, address, city, postal_code
 FROM businesses
 WHERE city = :city AND vegetarian = 'TRUE';
@@ -162,7 +168,9 @@ Timings: 113 fetched in 0.036 s, 0.034 s, 0.032 s. Improvements to this would li
 
 ### Query 6
 
-What are the highest rated businesses in each city reachable from source CITY? (Query requires filling in a string for CITY)
+What are the highest rated businesses in each city reachable from source CITY?
+
+(Query requires filling in a string for CITY)
 WITH relevant_businesses AS (SELECT DISTINCT sa.airport_name AS source_airport, sa.city AS source_city,
 da.airport_name AS destination_airport, da.city AS destination_city,
 b.name AS business_name, b.stars AS stars
@@ -180,6 +188,8 @@ ORDER BY rb.destination_city, rb.stars;
 
 Timings: 651 fetched in 0.237 s, 0.220 s, 0.225 s.
 Potential Future Extensions
+
+### Future Directions
 
 Yelp API
 

@@ -96,9 +96,9 @@ The OpenFlights dataset was already in a MySQL database, from our initial two ho
 The single field in common between the OpenFlights data and the Yelp data was “city” parameter-- thus, the queries which involved both datasets were joined on “city”.
 Performance Evaluation
 	
-	The following scripts were evaluated on the AWS instance of the Oracle SQL database, using Oracle SQL Developer to log times.
+The following scripts were evaluated on the AWS instance of the Oracle SQL database, using Oracle SQL Developer to log times.
 
-Query 1
+### Query 1
 
 Is there a route from source location city SOURCE_CITY to destination location city DESTINATION_CITY? (Query requires filling in strings for :source_city and :destination_city)
 SELECT al.airline_id, al.airline_name, r.source_id,
@@ -117,7 +117,7 @@ AND r.destination_id in (SELECT DISTINCT airport_id
 
 Timings: 3 fetched in 0.118 s, 0.176 s, 0.116 s, with indices on routes.source_id and routes.destination_id. 0.153 s, 0.149 s, 0.187 s without. In everyday experience, airline routes do not change frequently, and airport ids will almost never change. Source_id and destination_id are relatively safe targets to index for routes.
 
-Query 2
+### Query 2
 What are the highest rated (rating of 4 or greater) businesses at the destination with a certain number of reviews? (Query requires filling in a string for DESTINATION_CITY and number for MIN_REVIEWS)
 SELECT city, business_id, name, stars, review_count
 FROM businesses
@@ -129,7 +129,7 @@ Timing: 1.170 s, 1.269 s, 1.068 s with index on stars. 4.879 s, 2.462 s, 4.942 s
 If the minimum review count is changed to 100, the timings become: 0.078 s, 0.076 s, 0.081 s.
 
 
-Query 3
+### Query 3
 
 What are the business hours for a specific business in order of Sunday-Saturday? (Query requires filling in a business id for :id)
 SELECT *
@@ -140,7 +140,7 @@ ORDER BY CASE WHEN Day = 'Sunday' THEN 1 WHEN Day = 'Monday' THEN 2 WHEN Day = '
 Timings: 7 in 0.150 s, 0.165 s, 0.154 s, with business id '_ANM7INCSWVJ8_dQxEWKZg'. There is no difference when adding business_hours.day as an index.
 
 
-Query 4
+### Query 4
 
 What businesses are open on a specific day and time in a specific city? (Query requires filling in a string for CITY, DAY, HOUR, and MINUTE)
 SELECT b.name, b.address, b.city, h.open_hour, h.open_minute, h.close_hour, h.close_minute
@@ -150,7 +150,7 @@ WHERE ((h.open_hour < :hour) OR (h.open_hour = :hour AND h.open_minute <= :minut
 
 Timings: 4008 results in 5.264 s, 3.059 s, 7.396 s, without indexing on day for business_hours. 3.241 s, 1.932 s, 2.469 s. Since this query takes the longest and indexing cuts the time roughly in half, this is a good candidate for indexing.
 
-Query 5
+### Query 5
 
 What restaurants have vegetarian options in city CITY? (Query required filling in a string for CITY)
 SELECT name, address, city, postal_code
@@ -160,7 +160,7 @@ WHERE city = :city AND vegetarian = 'TRUE';
 Timings: 113 fetched in 0.036 s, 0.034 s, 0.032 s. Improvements to this would likely be negligible.
 
 
-Query 6
+### Query 6
 
 What are the highest rated businesses in each city reachable from source CITY? (Query requires filling in a string for CITY)
 WITH relevant_businesses AS (SELECT DISTINCT sa.airport_name AS source_airport, sa.city AS source_city,
@@ -182,10 +182,13 @@ Timings: 651 fetched in 0.237 s, 0.220 s, 0.225 s.
 Potential Future Extensions
 
 Yelp API
-	In the creation of this app, only the data available in Yelp’s dataset challenge were used. As a result, 700 select cities can be found in our database. The first obvious step would be to acquire Yelp’s entire database, or perhaps to query Yelp using its API directly for businesses of possible interest. Additionally, this would have allowed us to import user data to tailor recommendations.
+
+In the creation of this app, only the data available in Yelp’s dataset challenge were used. As a result, 700 select cities can be found in our database. The first obvious step would be to acquire Yelp’s entire database, or perhaps to query Yelp using its API directly for businesses of possible interest. Additionally, this would have allowed us to import user data to tailor recommendations.
 
 Google Maps API
-	Another possible feature would be to use the Google Maps API to help order businesses by distance from the starting location requested by the user. The Yelp data only includes longitudes and latitudes up to 4 characters, meaning that for businesses in the US (latitude > 10), the vertical accuracy is only to the nearest tenth of a degree. This corresponds to roughly 7 miles, which is far from ideal. 
+
+Another possible feature would be to use the Google Maps API to help order businesses by distance from the starting location requested by the user. The Yelp data only includes longitudes and latitudes up to 4 characters, meaning that for businesses in the US (latitude > 10), the vertical accuracy is only to the nearest tenth of a degree. This corresponds to roughly 7 miles, which is far from ideal. 
 
 Social Media Integration
-	For a more tailored user experience, a travel diary or travel vlog incorporated into one’s profile could enhance personalization and make the web application more user tailored. Searching for other users on the web application and making the web application as more of a social media platform as well as a trip planner would also be an interesting possible future extension. More user options to add a bio and create a more detailed profile would also incorporate the site as a more fun social media platform as well as a utilitarian and helpful platform. Likewise, login to relevant social media such as Instagram, Facebook, and Twitter would also help to enhance the app and bring interest to the app from friends across different social media. 
+
+For a more tailored user experience, a travel diary or travel vlog incorporated into one’s profile could enhance personalization and make the web application more user tailored. Searching for other users on the web application and making the web application as more of a social media platform as well as a trip planner would also be an interesting possible future extension. More user options to add a bio and create a more detailed profile would also incorporate the site as a more fun social media platform as well as a utilitarian and helpful platform. Likewise, login to relevant social media such as Instagram, Facebook, and Twitter would also help to enhance the app and bring interest to the app from friends across different social media. 

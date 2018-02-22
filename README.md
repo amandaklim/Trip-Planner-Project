@@ -3,8 +3,11 @@
 ### Introduction and Project Goals
 
 When traveling, people often want to know what restaurants and points of interest there are to visit in the places they visit. To make this task easier, it would be helpful to create a single platform where the user can search for their flights and also get to see points of interest at their destination. Introducing our web application… the Trip Planner!
+
 Trip Planner is a web application to help design and plan your next vacations. Customize your ideal vacation through personalizing your trips from start to finish. Choose from your favorite airlines, destinations, and restaurants. Discover new restaurants and filter through them based on different criteria. Take the opportunity to hear what others are saying about local places. Be your own personal trip advisor.
+
 **Screenshots of our app are found on the last pages on this document
+
 **The following template from https://www.w3schools.com/w3css/tryw3css_templates_parallax.htm and CSS files provided by w3schools was used to develop the UI and frontend.
 
 ### Basic Architecture
